@@ -12,8 +12,16 @@ let lg_image;
 var bullets;
 var objects;
 var ship;
-var shipImage, bulletImage, particleImage;
+var meteors;
+var xattack;
+var pointattack;
+let pointsCount = 0;
+var shipImage, bulletImage, particleImage, meteorImage;
 var MARGIN = 40;
+var objectsArray = [
+  { type: "triangle", amount: 3 },
+  { type: "round", amount: 3 }
+];
 
 const background = new Background();
 
@@ -25,7 +33,10 @@ function setup() {
   //Load images for paintBullets,
   bulletImage = loadImage("assets/asteroids_bullet.png");
   shipImage = loadImage("assets/spaceship.png");
-  particleImage = loadImage("assets/asteroids_particle.png");
+  particleImage = loadImage("assets/asteroids_particl11e.png");
+  meteorImage = loadImage("assets/meteor.png");
+  xattack = loadImage("assets/xattack0001.png", "assets/xattack0002.png");
+  pointattack = loadImage("assets/multipointattack.png");
 
   ship = createSprite(width / 2, height / 2);
   ship.maxSpeed = 6;
@@ -41,12 +52,15 @@ function setup() {
 
   objects = new Group();
   bullets = new Group();
+  meteors = new Group();
 
-  for (var i = 0; i < 8; i++) {
+  for (var i = 0; i < 5; i++) {
     var ang = random(360);
     var px = width / 2 + 1000 * cos(radians(ang));
     var py = height / 2 + 1000 * sin(radians(ang));
-    createObject(3, px, py);
+    createRoundObject(3, px, py);
+    createTriangleObject(3, px, py);
+    createSquareObject(3, px, py);
   }
 }
 
@@ -82,25 +96,103 @@ function draw() {
 
   objects.overlap(bullets, objectHit);
 
-  ship.bounce(objects);
+  if (ship.bounce(objects)) {
+    console.log("game over");
+  }
 
-  if (keyDown(LEFT_ARROW)) ship.rotation -= 5;
-  if (keyDown(RIGHT_ARROW)) ship.rotation += 5;
+  if (keyDown(LEFT_ARROW)) {
+    ship.rotation -= 10;
+  }
+  if (keyDown(RIGHT_ARROW)) ship.rotation += 10;
   if (keyDown(UP_ARROW)) {
-    ship.addSpeed(3, ship.rotation);
+    ship.addSpeed(7, ship.rotation);
     ship.changeAnimation("thrust");
 
-    ship.position.x -= Math.sin(ship.rotation) * ship.getSpeed();
-    ship.position.y -= Math.cos(ship.rotation) * ship.getSpeed();
+    // min fixed here for angle/ radian my vers (ship.rotation) => ship.rotation / 180 * PI
+    ship.position.x += Math.sin((ship.rotation / 180) * PI) * ship.getSpeed();
+    ship.position.y -= Math.cos((ship.rotation / 180) * PI) * ship.getSpeed();
   } else ship.changeAnimation("normal");
 
   if (keyWentDown("x")) {
     var bullet = createSprite(ship.position.x, ship.position.y);
     bullet.addImage(bulletImage);
     bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+    bullet.scale = 3;
     bullet.life = 50;
     bullets.add(bullet);
   }
+
+  if (keyWentDown("c")) {
+    var bullet = createSprite(ship.position.x, ship.position.y);
+    bullet.addImage(pointattack);
+    bullet.scale = 2;
+    bullet.rotation = ship.rotation;
+    bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+    bullet.life = 200;
+    bullets.add(bullet);
+  }
+
+  if (keyWentDown("z")) {
+    var bullet = createSprite(ship.position.x, ship.position.y);
+    bullet.addImage(meteorImage);
+    bullet.scale = 1.5;
+    bullet.rotation = ship.rotation;
+    bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+    bullet.life = 200;
+    bullets.add(bullet);
+  }
+
+  if (keyWentDown("v")) {
+    var bullet = createSprite(ship.position.x, ship.position.y);
+    bullet.addImage(xattack);
+    bullet.scale = 1.5;
+    bullet.rotation = ship.rotation;
+    bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+    bullet.life = 200;
+
+    bullets.add(bullet);
+  }
+
+  // CHAOS BULLET ATTACK
+  // if (keyWentDown("z")) {
+  //   for (var i = 0; i <= 150; i++) {
+  //     var bullet = createSprite(ship.position.x + i, ship.position.y);
+  //     bullet.addImage(meteorImage);
+  //     bullet.scale = 0.2;
+  //     bullet.rotation = ship.rotation + 90;
+  //     bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+  //     bullet.life = 200;
+  //     bullets.add(bullet);
+  //     console.log(bullet);
+  //     i += 50;
+  //   }
+  // }
+
+  /* AFTER RECEIVING CERTAIN ITEM */
+  // for (var i = 0; i < 50; i++) {
+  //   var bullet = createSprite(ship.position.x + i, ship.position.y);
+  //   bullet.addImage(bulletImage);
+  //   bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+  //   bullet.life = 50;
+  //   bullets.add(bullet);
+  //   i += 5;
+  // }
+
+  /* AFTER RECEIVING ANOTHER "MASSIVE BULLETS' ITEM */
+  // var bullet = createSprite(ship.position.x, ship.position.y);
+  // bullet.addImage(bulletImage);
+  // bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+  // bullet.life = 50;
+  // bullet.scale = 5;
+  // bullets.add(bullet);
+
+  /* AFTER RECEIVING ANOTHER "LASER LINE BULLETS' ITEM */
+  // var bullet = createSprite(ship.position.x, ship.position.y);
+  // bullet.addImage(bulletImage);
+  // bullet.setSpeed(10 + ship.getSpeed(), ship.rotation - 90);
+  // bullet.life = 50;
+  // bullet.scale = 5;
+  // bullets.add(bullet);
 
   // ship.velocity.x = (mouseX - ship.position.x) * 0.5;
   // ship.velocity.y = (mouseY - ship.position.y) * 0.5;
@@ -108,7 +200,7 @@ function draw() {
   drawSprites();
 }
 
-function createObject(type, x, y) {
+function createRoundObject(type, x, y) {
   var a = createSprite(x, y);
   var img = loadImage("assets/roundObject" + floor(random(0, 3)) + ".png");
   a.addImage(img);
@@ -117,8 +209,44 @@ function createObject(type, x, y) {
   //a.debug = true;
   a.type = type;
 
-  if (type == 2) a.scale = 0.6;
-  if (type == 1) a.scale = 0.3;
+  if (type == 2) a.scale = 0.9;
+  if (type == 1) a.scale = 0.6;
+
+  a.mass = 2 + a.scale;
+  a.setCollider("circle", 0, 0, 50);
+  objects.add(a);
+  return a;
+}
+
+function createTriangleObject(type, x, y) {
+  var a = createSprite(x, y);
+  var img = loadImage("assets/roundObject" + floor(random(3, 6)) + ".png");
+  a.addImage(img);
+  a.setSpeed(2.5 - type / 2, random(360));
+  a.rotationSpeed = 0.5;
+  //a.debug = true;
+  a.type = type;
+
+  if (type == 2) a.scale = 0.9;
+  if (type == 1) a.scale = 0.6;
+
+  a.mass = 2 + a.scale;
+  a.setCollider("circle", 0, 0, 50);
+  objects.add(a);
+  return a;
+}
+
+function createSquareObject(type, x, y) {
+  var a = createSprite(x, y);
+  var img = loadImage("assets/roundObject" + floor(random(6, 9)) + ".png");
+  a.addImage(img);
+  a.setSpeed(2.5 - type / 2, random(360));
+  a.rotationSpeed = 0.5;
+  //a.debug = true;
+  a.type = type;
+
+  if (type == 2) a.scale = 0.9;
+  if (type == 1) a.scale = 0.6;
 
   a.mass = 2 + a.scale;
   a.setCollider("circle", 0, 0, 50);
@@ -130,14 +258,15 @@ function objectHit(object, bullet) {
   var newType = object.type - 1;
 
   if (newType > 0) {
-    createObject(newType, object.position.x, object.position.y);
-    createObject(newType, object.position.x, object.position.y);
+    createRoundObject(newType, object.position.x, object.position.y);
+    createTriangleObject(newType, object.position.x, object.position.y);
+    createSquareObject(newType, object.position.x, object.position.y);
   }
 
   for (var i = 0; i < 10; i++) {
     var p = createSprite(bullet.position.x, bullet.position.y);
     p.addImage(particleImage);
-    p.setSpeed(random(3, 5), random(360));
+    p.setSpeed(random(3, 50), random(360));
     p.friction = 0.95;
     p.life = 15;
   }

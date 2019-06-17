@@ -27,8 +27,9 @@
 
 class Background {
   constructor() {
-    this.y = HEIGHT;
+    this.y = -HEIGHT;
     this.yReversed = 0;
+    this.startY = 0;
   }
 
   setup() {
@@ -36,18 +37,21 @@ class Background {
   }
 
   draw() {
+    image(this.bg_image, 0, this.startY, WIDTH, HEIGHT);
+    this.startY += 5;
+
     image(this.bg_image, 0, this.y, WIDTH, HEIGHT);
     image(this.bg_image, 0, this.yReversed, WIDTH, HEIGHT);
 
-    if (this.y <= -HEIGHT) {
-      this.y = HEIGHT;
+    if (this.y >= HEIGHT) {
+      this.y = 0;
     }
 
-    if (this.yReversed <= -HEIGHT) {
-      this.yReversed = HEIGHT;
+    if (this.yReversed >= 0) {
+      this.yReversed = -HEIGHT;
     }
 
-    this.y -= 3;
-    this.yReversed -= 3;
+    this.y += 5;
+    this.yReversed += 5;
   }
 }
