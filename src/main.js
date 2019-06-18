@@ -18,10 +18,6 @@ var pointattack;
 let pointsCount = 0;
 var shipImage, bulletImage, particleImage, meteorImage;
 var MARGIN = 40;
-var objectsArray = [
-  { type: "triangle", amount: 3 },
-  { type: "round", amount: 3 }
-];
 
 const background = new Background();
 
