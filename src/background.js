@@ -1,30 +1,3 @@
-// class Background {
-//   constructor() {
-//     this.x = WIDTH;
-//     this.xReversed = 0;
-//   }
-
-//   setup() {
-//     this.bg_image = loadImage("assets/background_rotated.jpg");
-//   }
-
-//   draw() {
-//     image(this.bg_image, this.x, 0, WIDTH, HEIGHT);
-//     image(this.bg_image, this.xReversed, 0, WIDTH, HEIGHT);
-
-//     if (this.x <= -WIDTH) {
-//       this.x = WIDTH;
-//     }
-
-//     if (this.xReversed <= -WIDTH) {
-//       this.xReversed = WIDTH;
-//     }
-
-//     this.x -= 3;
-//     this.xReversed -= 3;
-//   }
-// }
-
 class Background {
   constructor() {
     this.y = -HEIGHT;
@@ -33,25 +6,63 @@ class Background {
   }
 
   setup() {
-    this.bg_image = loadImage("assets/background_rotated.jpg");
+    this.bg_image_0 = loadImage("assets/background_rotated.jpg");
+    this.bg_image_1 = loadImage("assets/background_rotated_1.jpg");
+    this.bg_image_2 = loadImage("assets/background_rotated_2.jpg");
   }
 
   draw() {
-    image(this.bg_image, 0, this.startY, WIDTH, HEIGHT);
-    this.startY += 5;
+    if (LEVEL === 0) {
+      image(this.bg_image_0, 0, this.startY, WIDTH, HEIGHT);
+      this.startY += 5;
 
-    image(this.bg_image, 0, this.y, WIDTH, HEIGHT);
-    image(this.bg_image, 0, this.yReversed, WIDTH, HEIGHT);
+      image(this.bg_image_0, 0, this.y, WIDTH, HEIGHT);
+      image(this.bg_image_0, 0, this.yReversed, WIDTH, HEIGHT);
 
-    if (this.y >= HEIGHT) {
-      this.y = 0;
+      if (this.y >= HEIGHT) {
+        this.y = 0;
+      }
+
+      if (this.yReversed >= 0) {
+        this.yReversed = -HEIGHT;
+      }
+
+      this.y += 5;
+      this.yReversed += 5;
+    } else if (LEVEL === 1) {
+      image(this.bg_image_1, 0, this.startY, WIDTH, HEIGHT);
+      this.startY += 5;
+
+      image(this.bg_image_1, 0, this.y, WIDTH, HEIGHT);
+      image(this.bg_image_1, 0, this.yReversed, WIDTH, HEIGHT);
+
+      if (this.y >= HEIGHT) {
+        this.y = 0;
+      }
+
+      if (this.yReversed >= 0) {
+        this.yReversed = -HEIGHT;
+      }
+
+      this.y += 5;
+      this.yReversed += 5;
+    } else if (LEVEL === 2) {
+      image(this.bg_image_2, 0, this.startY, WIDTH, HEIGHT);
+      this.startY += 5;
+
+      image(this.bg_image_2, 0, this.y, WIDTH, HEIGHT);
+      image(this.bg_image_2, 0, this.yReversed, WIDTH, HEIGHT);
+
+      if (this.y >= HEIGHT) {
+        this.y = 0;
+      }
+
+      if (this.yReversed >= 0) {
+        this.yReversed = -HEIGHT;
+      }
+
+      this.y += 5;
+      this.yReversed += 5;
     }
-
-    if (this.yReversed >= 0) {
-      this.yReversed = -HEIGHT;
-    }
-
-    this.y += 5;
-    this.yReversed += 5;
   }
 }

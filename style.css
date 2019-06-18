@@ -57,6 +57,25 @@ button {
   width: 250px;
   transform: translate(-50%, -50%);
 }
+.message-carry {
+  position: absolute;
+  left: 50%;
+}
+#message1 {
+  display: none;
+  position: relative;
+  left: -50%;
+  top: -50%;
+  font-size: 2rem;
+}
+
+#message2 {
+  display: none;
+  position: relative;
+  left: -50%;
+  top: -50%;
+  font-size: 2rem;
+}
 
 /* STAR WARS EFFECT */
 
