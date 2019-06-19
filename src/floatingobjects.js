@@ -14,7 +14,7 @@ class Floatingobjects {
     if (type == 1) a.scale = 0.6;
 
     a.mass = 2 + a.scale;
-    a.setCollider("circle", 0, 0, 50);
+    a.setDefaultCollider();
     objects.add(a);
     return a;
   }
@@ -32,7 +32,7 @@ class Floatingobjects {
     if (type == 1) a.scale = 0.6;
 
     a.mass = 2 + a.scale;
-    a.setCollider("circle", 0, 0, 50);
+    a.setDefaultCollider();
     objects.add(a);
     return a;
   }
@@ -50,7 +50,7 @@ class Floatingobjects {
     if (type == 1) a.scale = 0.6;
 
     a.mass = 2 + a.scale;
-    a.setCollider("circle", 0, 0, 50);
+    a.setDefaultCollider();
     objects.add(a);
     return a;
   }

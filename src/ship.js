@@ -49,6 +49,10 @@ class Ship {
       this.shipSpr.setSpeed(0, 180);
     } else if (keyDown(UP_ARROW)) {
       this.shipSpr.setSpeed(0, 270);
+    } else if (keyWentDown("O")) {
+      pointsCount += objects.length;
+      console.log(objects.length);
+      objects.removeSprites();
     }
     // else if (key == " ") {
     //   this.shipSpr.setSpeed(0, 0);
@@ -62,12 +66,12 @@ class Ship {
         weapons.standartStrike();
       }
     }
-    if (LEVEL >= 1) {
+    if (LEVEL >= 3) {
       if (keyWentDown("x")) {
         weapons.multiStrike();
       }
     }
-    if (LEVEL >= 2) {
+    if (LEVEL >= 7) {
       if (keyWentDown("z")) {
         weapons.meteorStrike();
       }

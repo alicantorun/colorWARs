@@ -2,35 +2,35 @@ class ObjectEngine {
   constructor() {}
 
   objectCreator() {
-    if (LEVEL === 0) {
-      for (var i = 0; i < 1; i++) {
-        var ang = random(360);
-        var px = width / 2 + 1000 * cos(radians(ang));
-        var py = height / 2 + 1000 * sin(radians(ang));
-        floatingobjects.createRoundObject(1, px, py);
-        // floatingobjects.createTriangleObject(3, px, py);
-        // floatingobjects.createSquareObject(3, px, py);
-      }
-      // LEVEL = 11
+    for (var i = 0; i < allSprites.length; i++) {
+      var s = allSprites[i];
+      if (s.position.x < -MARGIN) s.position.x = width + MARGIN;
+      if (s.position.x > width + MARGIN) s.position.x = -MARGIN;
+      if (s.position.y < -MARGIN) s.position.y = height + MARGIN;
+      if (s.position.y > height + MARGIN) s.position.y = -MARGIN;
     }
-    if (LEVEL === 1) {
-      for (var y = 0; i < 1; i++) {
-        var ang = random(360);
-        var px = width / 2 + 1000 * cos(radians(ang));
-        var py = height / 2 + 1000 * sin(radians(ang));
-        floatingobjects.createRoundObject(2, px, py);
-        floatingobjects.createTriangleObject(2, px, py);
-        // floatingobjects.createSquareObject(3, px, py);
-      }
-    }
-    if (LEVEL === 2) {
-      for (var z = 0; i < 1; i++) {
-        var ang = random(360);
-        var px = width / 2 + 1000 * cos(radians(ang));
-        var py = height / 2 + 1000 * sin(radians(ang));
-        floatingobjects.createRoundObject(3, px, py);
-        floatingobjects.createTriangleObject(3, px, py);
-        floatingobjects.createSquareObject(3, px, py);
+
+    for (var i = 0; i <= LEVEL / 2; i++) {
+      var ang = random(360);
+      var px = width / 2 + 1000 * cos(radians(ang));
+      var py = height / 2 + 1000 * sin(radians(ang));
+      if (game_state === true) {
+        if (LEVEL >= 1) {
+          floatingobjects.createRoundObject(1, px, py);
+        }
+
+        if (LEVEL >= 3) {
+          floatingobjects.createSquareObject(1, px, py);
+        }
+
+        if (LEVEL >= 5) {
+          floatingobjects.createTriangleObject(1, px, py);
+        }
+        if (LEVEL === 10) {
+          objects.removeSprites();
+
+          boss.createBoss((1, px, py));
+        }
       }
     }
   }
