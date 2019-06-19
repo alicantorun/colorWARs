@@ -31,6 +31,10 @@ let song;
 let battleSong;
 let rocketSound;
 let laserSong;
+let multiSound;
+let xSound;
+let bossSound;
+let noSound;
 
 // const background = new Background();
 const ship = new Ship();
@@ -53,6 +57,10 @@ function preload() {
   battleSong = loadSound("/assets/battle.mp3");
   rocketSound = loadSound("/assets/rocket.mp3");
   laserSong = loadSound("/assets/laser1.mp3");
+  multiSound = loadSound("/assets/multi.mp3");
+  xSound = loadSound("/assets/xgun.mp3");
+  bossSound = loadSound("/assets/boss.mp3");
+  noSound = loadSound("/assets/noo.mp3");
 }
 
 function setup() {
@@ -113,6 +121,9 @@ function draw() {
     objects.collide(bullets, function(e) {
       bossHp++;
       if (bossHp >= 500) {
+        bossSound.stop();
+        noSound.setVolume(0.1);
+        noSound.play();
         objects.overlap(bullets, collisionEngine.objectHit);
         document.querySelector("#message1").style.display = "block";
         document.querySelector("#message1").innerHTML =

@@ -64,25 +64,29 @@ class Ship {
     if (LEVEL >= 0) {
       if (keyWentDown("c")) {
         weapons.standartStrike();
-        laserSong.setVolume(0.2);
+        laserSong.setVolume(0.3);
         laserSong.play();
       }
     }
     if (LEVEL >= 3) {
       if (keyWentDown("x")) {
         weapons.multiStrike();
+        multiSound.setVolume(0.2);
+        multiSound.play();
       }
     }
     if (LEVEL >= 5) {
       if (keyWentDown("z")) {
         weapons.meteorStrike();
-        rocketSound.setVolume(0.1);
+        rocketSound.setVolume(0.15);
         rocketSound.play();
       }
     }
     if (LEVEL >= 7) {
       if (keyWentDown("v")) {
         weapons.xStrike();
+        xSound.setVolume(0.1);
+        xSound.play();
       }
     }
   }

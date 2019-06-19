@@ -30,6 +30,9 @@ class ObjectEngine {
           objects.removeSprites();
 
           boss.createBoss((1, px, py));
+          battleSong.stop();
+          bossSound.setVolume(0.1);
+          bossSound.play();
         }
       }
     }
