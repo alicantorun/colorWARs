@@ -1,6 +1,6 @@
-class Boss extends Weapons {
-  constructor() {
-    super();
+class Boss {
+  constructor(bossSpr) {
+    this.bossSpr = bossSpr;
   }
 
   createBoss(type, x, y) {
@@ -9,7 +9,7 @@ class Boss extends Weapons {
       var img = loadImage("assets/boss" + ".png");
       a.addImage(img);
       a.setSpeed(2.5, random(360));
-      a.rotationSpeed = 0;
+      a.rotationSpeed = 1;
       //a.debug = true;
       a.type = type;
       a.scale = 0.3;

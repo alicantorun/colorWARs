@@ -30,13 +30,13 @@ body {
 }
 
 body h1 {
-  font-size: 30px;
+  font-size: 20px;
   text-transform: uppercase;
 }
-button {
+#start-game {
   font-size: 20px;
   background-color: black;
-  color: #fff;
+  color: #ff6;
   padding: 10px 20px;
   border: 0;
   box-shadow: 0;
@@ -45,8 +45,9 @@ button {
   position: absolute;
   left: 50%;
   position: absolute;
-  top: 70%;
+  top: 10%;
   transform: translate(-50%, -50%);
+  display: none;
 }
 
 #logo {
@@ -58,14 +59,12 @@ button {
   transform: translate(-50%, -50%);
 }
 .message-carry {
-  position: absolute;
   left: 50%;
+  height: 75px;
 }
 #message1 {
   display: none;
   position: relative;
-  left: -50%;
-  top: -50%;
   font-size: 2rem;
 }
 
@@ -75,6 +74,11 @@ button {
   left: -50%;
   top: -50%;
   font-size: 2rem;
+}
+
+#game-container {
+  display: none;
+  font-size: 1.3rem;
 }
 
 /* STAR WARS EFFECT */

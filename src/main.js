@@ -25,8 +25,12 @@ let asd;
 let sdf;
 let dfg;
 let boss_state = false;
-let game_state = true;
+let game_state = false;
 let bossHp = 0;
+let song;
+let battleSong;
+let rocketSound;
+let laserSong;
 
 // const background = new Background();
 const ship = new Ship();
@@ -44,10 +48,15 @@ function preload() {
   meteorImage = loadImage("assets/meteor.png");
   xattack = loadImage("assets/xattack0001.png", "assets/xattack0002.png");
   pointattackImage = loadImage("assets/multipointattack.png");
+  soundFormats("mp3", "ogg");
+  song = loadSound("/assets/Star Wars Theme Song By John Williams.mp3");
+  battleSong = loadSound("/assets/battle.mp3");
+  rocketSound = loadSound("/assets/rocket.mp3");
+  laserSong = loadSound("/assets/laser1.mp3");
 }
 
 function setup() {
-  createCanvas(900, 600);
+  createCanvas(1200, 900);
 
   // if (LEVEL === 1) {
   //   background.setup();
@@ -60,13 +69,23 @@ function setup() {
   ship.setup();
   objects = new Group();
   bullets = new Group();
+
+  song.setVolume(0.1);
+  song.play();
 }
 
 function draw() {
   // background.draw(25, 25, 25);
   clear();
-  background(pointsCount, pointsCount, pointsCount);
-
+  if (boss_state === true) {
+    if (frameCount % 30 === 0) {
+      for (let i = 0; i < 255; i++) {
+        background(i, 0, 0);
+      }
+    }
+  } else {
+    background(pointsCount / 2, pointsCount / 2, pointsCount / 2);
+  }
   ship.rotationControls();
   ship.attacksControls();
   ship.keyPresses();
@@ -95,8 +114,10 @@ function draw() {
       bossHp++;
       if (bossHp >= 500) {
         objects.overlap(bullets, collisionEngine.objectHit);
-        document.querySelector("#level").innerHTML = "VICTORY IS YOURS CHAMP!";
         document.querySelector("#message1").style.display = "block";
+        document.querySelector("#message1").innerHTML =
+          "VICTORY IS YOURS CHAMP!";
+
         setTimeout(() => {
           document.querySelector("#message1").style.display = "none";
         }, 1500);
@@ -104,3 +125,28 @@ function draw() {
     });
   }
 }
+
+document.getElementById("start-game").addEventListener("click", function() {
+  document.querySelector("#start-game").style.display = "none";
+  document.querySelector("#game-banner").style.display = "none";
+  document.querySelector("#game-container").style.display = "block";
+  song.stop();
+  battleSong.setVolume(0.1);
+  battleSong.play();
+
+  game_state = true;
+  LEVEL = 1;
+  document.querySelector("#level").innerHTML = LEVEL;
+  document.querySelector(
+    "#message1"
+  ).innerHTML = `BEGIN - CONTROLS    W,A,S,D    TO SHOOT PRESS    C`;
+  document.querySelector("#message1").style.display = "block";
+  setTimeout(() => {
+    document.querySelector("#message1").style.display = "none";
+  }, 5000);
+  console.log(1);
+});
+
+$("#start-game")
+  .delay(1000)
+  .show(0);
