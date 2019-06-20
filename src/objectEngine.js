@@ -16,7 +16,7 @@ class ObjectEngine {
       var py = height / 2 + 1000 * sin(radians(ang));
       if (game_state === true) {
         if (LEVEL >= 1) {
-          floatingobjects.createRoundObject(3, px, py);
+          floatingobjects.createRoundObject(1, px, py);
         }
 
         if (LEVEL >= 3) {
@@ -29,7 +29,8 @@ class ObjectEngine {
         if (LEVEL === 10) {
           objects.removeSprites();
 
-          boss.createBoss((1, px, py));
+          boss.createBoss();
+
           battleSong.stop();
           bossSound.setVolume(0.1);
           bossSound.play();

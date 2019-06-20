@@ -114,9 +114,9 @@ class CollisionEngine {
           document.querySelector("#message1").style.display = "none";
         }, 1500);
         break;
-      case 500:
+      case 310:
         LEVEL = 10;
-        document.querySelector("#level").innerHTML = "💀BOSS💀";
+
         document.querySelector(
           "#message1"
         ).innerHTML = `!!!!!BOSS LEVEL REACHED!!!!!`;
@@ -146,31 +146,32 @@ class CollisionEngine {
     // document.querySelector("#score").innerHTML = pointsCount;
     // console.log(pointsCount);
 
-    // if (newType > 0) {
-    //   floatingobjects.createRoundObject(
-    //     newType,
-    //     object.position.x,
-    //     object.position.y
-    //   );
-    //   floatingobjects.createTriangleObject(
-    //     newType,
-    //     object.position.x,
-    //     object.position.y
-    //   );
-    //   floatingobjects.createSquareObject(
-    //     newType,
-    //     object.position.x,
-    //     object.position.y
-    //   );
-    // }
+    if (newType == 1) {
+      floatingobjects.createRoundObject(
+        newType,
+        object.position.x,
+        object.position.y
+      );
+    }
 
-    // for (var i = 0; i < 3; i++) {
-    //   var p = createSprite(bullet.position.x, bullet.position.y);
-    //   p.addImage(particleImage);
-    //   p.setSpeed(random(3, 50), random(360));
-    //   p.friction = 0.95;
-    //   p.life = 15;
-    // }
+    // floatingobjects.createTriangleObject(
+    //   newType,
+    //   object.position.x,
+    //   object.position.y
+    // );
+    // floatingobjects.createSquareObject(
+    //   newType,
+    //   object.position.x,
+    //   object.position.y
+    // );
+
+    for (var i = 0; i < 3; i++) {
+      var p = createSprite(bullet.position.x, bullet.position.y);
+      p.addImage(particleImage);
+      p.setSpeed(random(3, 50), random(360));
+      p.friction = 0.95;
+      p.life = 15;
+    }
 
     bullet.remove();
     object.remove();

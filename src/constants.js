@@ -1,5 +1,5 @@
 // var WIDTH = windowWidth;
 // var HEIGHT = windowHeight;
 
-var WIDTH = 900;
-var HEIGHT = 600;
+var WIDTH = 1200;
+var HEIGHT = 900;

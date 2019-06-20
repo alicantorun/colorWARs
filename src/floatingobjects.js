@@ -3,15 +3,22 @@ class Floatingobjects {
 
   createRoundObject(type, x, y) {
     var a = createSprite(x, y);
-    var img = loadImage("assets/roundObject" + floor(random(0, 3)) + ".png");
+    var img = loadImage("assets/roundObject" + floor(random(0, 2)) + ".png");
     a.addImage(img);
     a.setSpeed(2.5 - type / 2, random(360));
-    a.rotationSpeed = 0.5;
+    a.rotationSpeed = 0.05;
     //a.debug = true;
     a.type = type;
 
-    if (type == 2) a.scale = 0.9;
-    if (type == 1) a.scale = 0.6;
+    // if (type == 3) {
+    //   a.scale = 1.2;
+    // }
+    if (type == 1) {
+      a.scale = 1;
+    }
+    if (type == 2) {
+      a.scale = 1.5;
+    }
 
     a.mass = 2 + a.scale;
     a.setDefaultCollider();
@@ -21,15 +28,19 @@ class Floatingobjects {
 
   createTriangleObject(type, x, y) {
     var a = createSprite(x, y);
-    var img = loadImage("assets/roundObject" + floor(random(3, 6)) + ".png");
+    var img = loadImage("assets/roundObject" + floor(random(2, 4)) + ".png");
     a.addImage(img);
     a.setSpeed(2.5 - type / 2, random(360));
     a.rotationSpeed = 0.5;
     //a.debug = true;
     a.type = type;
 
-    if (type == 2) a.scale = 0.9;
-    if (type == 1) a.scale = 0.6;
+    if (type == 1) {
+      a.scale = 1;
+    }
+    if (type == 2) {
+      a.scale = 1.5;
+    }
 
     a.mass = 2 + a.scale;
     a.setDefaultCollider();
@@ -39,15 +50,19 @@ class Floatingobjects {
 
   createSquareObject(type, x, y) {
     var a = createSprite(x, y);
-    var img = loadImage("assets/roundObject" + floor(random(6, 9)) + ".png");
+    var img = loadImage("assets/roundObject" + floor(random(4, 6)) + ".png");
     a.addImage(img);
     a.setSpeed(2.5 - type / 2, random(360));
     a.rotationSpeed = 0.5;
     //a.debug = true;
     a.type = type;
 
-    if (type == 2) a.scale = 0.9;
-    if (type == 1) a.scale = 0.6;
+    if (type == 1) {
+      a.scale = 1;
+    }
+    if (type == 2) {
+      a.scale = 1.5;
+    }
 
     a.mass = 2 + a.scale;
     a.setDefaultCollider();

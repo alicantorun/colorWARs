@@ -8,6 +8,7 @@
 //asteroid clone (core mechanics only)
 //arrow keys to move + x to shoot
 
+let system;
 let bullets;
 let objects;
 let meteors;
@@ -15,7 +16,7 @@ let xattack;
 let pointattackImage;
 let pointsCount = 0;
 let health = 100;
-let shipImage, bulletImage, particleImage, meteorImage;
+let shipImage, bulletImage, particleImage, meteorImage, bossImg, bossAttackImg;
 let MARGIN = 40;
 let LEVEL = 1;
 var col = 100;
@@ -26,6 +27,7 @@ let sdf;
 let dfg;
 let boss_state = false;
 let game_state = false;
+let game_over = false;
 let bossHp = 0;
 let song;
 let battleSong;
@@ -35,8 +37,11 @@ let multiSound;
 let xSound;
 let bossSound;
 let noSound;
+let xPosBoss = 250;
+let yPosBoss = 250;
 
 // const background = new Background();
+
 const ship = new Ship();
 const floatingobjects = new Floatingobjects();
 const weapons = new Weapons();
@@ -44,6 +49,7 @@ const objectEngine = new ObjectEngine();
 const collisionEngine = new CollisionEngine();
 const obstacles = new Obstacles();
 const boss = new Boss();
+const trail = new Trail();
 
 function preload() {
   bulletImage = loadImage("assets/asteroids_bullet.png");
@@ -61,30 +67,21 @@ function preload() {
   xSound = loadSound("/assets/xgun.mp3");
   bossSound = loadSound("/assets/boss.mp3");
   noSound = loadSound("/assets/noo.mp3");
+  bossAttackImg = loadImage("/assets/bossAttack.png");
 }
 
 function setup() {
   createCanvas(1200, 900);
-
-  // if (LEVEL === 1) {
-  //   background.setup();
-  // } else if (LEVEL === 2) {
-  //   background.setup();
-  // } else if (LEVEL === 3) {
-  //   background.setup();
-  // }
-
   ship.setup();
   objects = new Group();
   bullets = new Group();
-
   song.setVolume(0.1);
   song.play();
 }
 
 function draw() {
-  // background.draw(25, 25, 25);
   clear();
+
   if (boss_state === true) {
     if (frameCount % 30 === 0) {
       for (let i = 0; i < 255; i++) {
@@ -94,10 +91,12 @@ function draw() {
   } else {
     background(pointsCount / 2, pointsCount / 2, pointsCount / 2);
   }
+
   ship.rotationControls();
   ship.attacksControls();
   ship.keyPresses();
   ship.isHit();
+  trail.draw();
 
   if (LEVEL <= 3) {
     if (frameCount % 25 === 0) {
@@ -113,7 +112,34 @@ function draw() {
     }
   }
 
+  if (boss.bossSpr) {
+    boss.bossMovement();
+    if (frameCount % 180 === 0) {
+      boss.bossStrike();
+    }
+  }
+
   drawSprites();
+
+  if (health <= 0) {
+    objects.removeSprites();
+
+    bossSound.stop();
+    noSound.setVolume(0.1);
+    noSound.play();
+    objects.overlap(bullets, collisionEngine.objectHit);
+    document.querySelector("#game-board").innerHTML = "";
+    document.querySelector("#message1").style.display = "block";
+    document.querySelector("#message1").innerHTML = "GAME OVER - YOU LOST!";
+    document.querySelector("#start-game").style.display = "block";
+    document.getElementById("start-game").addEventListener("click", function() {
+      location.reload();
+    });
+
+    setTimeout(() => {
+      document.querySelector("#message1").style.display = "none";
+    }, 1500);
+  }
 
   if (game_state === true && boss_state === false) {
     objects.overlap(bullets, collisionEngine.objectHit);
@@ -125,13 +151,16 @@ function draw() {
         noSound.setVolume(0.1);
         noSound.play();
         objects.overlap(bullets, collisionEngine.objectHit);
+        document.querySelector("#game-board").innerHTML = "";
         document.querySelector("#message1").style.display = "block";
         document.querySelector("#message1").innerHTML =
           "VICTORY IS YOURS CHAMP!";
 
         setTimeout(() => {
+          location.reload();
+
           document.querySelector("#message1").style.display = "none";
-        }, 1500);
+        }, 2500);
       }
     });
   }
@@ -159,5 +188,5 @@ document.getElementById("start-game").addEventListener("click", function() {
 });
 
 $("#start-game")
-  .delay(1000)
+  .delay(1500)
   .show(0);
