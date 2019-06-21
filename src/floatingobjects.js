@@ -14,10 +14,10 @@ class Floatingobjects {
     //   a.scale = 1.2;
     // }
     if (type == 1) {
-      a.scale = 1;
+      a.scale = 1.5;
     }
     if (type == 2) {
-      a.scale = 1.5;
+      a.scale = 1;
     }
 
     a.mass = 2 + a.scale;
@@ -36,10 +36,10 @@ class Floatingobjects {
     a.type = type;
 
     if (type == 1) {
-      a.scale = 1;
+      a.scale = 1.5;
     }
     if (type == 2) {
-      a.scale = 1.5;
+      a.scale = 1;
     }
 
     a.mass = 2 + a.scale;
@@ -58,10 +58,10 @@ class Floatingobjects {
     a.type = type;
 
     if (type == 1) {
-      a.scale = 1;
+      a.scale = 1.5;
     }
     if (type == 2) {
-      a.scale = 1.5;
+      a.scale = 1;
     }
 
     a.mass = 2 + a.scale;

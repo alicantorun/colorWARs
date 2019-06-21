@@ -16,11 +16,11 @@ class ObjectEngine {
       var py = height / 2 + 1000 * sin(radians(ang));
       if (game_state === true) {
         if (LEVEL >= 1) {
-          floatingobjects.createRoundObject(1, px, py);
+          floatingobjects.createRoundObject(3, px, py);
         }
 
         if (LEVEL >= 3) {
-          floatingobjects.createSquareObject(1, px, py);
+          floatingobjects.createSquareObject(2, px, py);
         }
 
         if (LEVEL >= 5) {

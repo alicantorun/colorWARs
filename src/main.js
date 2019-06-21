@@ -155,7 +155,7 @@ function draw() {
   } else if (boss_state === true && game_state === false) {
     objects.collide(bullets, function(e) {
       bossHp++;
-      if (bossHp >= 500) {
+      if (bossHp >= 1000) {
         bossSound.stop();
         noSound.setVolume(0.1);
         noSound.play();
@@ -189,7 +189,7 @@ document.getElementById("start-game").addEventListener("click", function() {
   document.querySelector("#level").innerHTML = LEVEL;
   document.querySelector(
     "#message1"
-  ).innerHTML = `BEGIN - CONTROLS    W,A,S,D    TO SHOOT PRESS    C`;
+  ).innerHTML = `BEGIN GAME /-> CONTROLS   -  ARROW KEYS  -  TO SHOOT PRESS  -  C`;
   document.querySelector("#message1").style.display = "block";
   setTimeout(() => {
     document.querySelector("#message1").style.display = "none";

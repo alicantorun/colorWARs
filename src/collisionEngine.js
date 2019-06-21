@@ -146,14 +146,15 @@ class CollisionEngine {
     // document.querySelector("#score").innerHTML = pointsCount;
     // console.log(pointsCount);
 
-    if (newType == 1) {
-      floatingobjects.createRoundObject(
-        newType,
-        object.position.x,
-        object.position.y
-      );
+    if (LEVEL >= 5) {
+      if (newType == 2) {
+        floatingobjects.createSquareObject(
+          newType,
+          object.position.x - random(100),
+          object.position.y - random(100)
+        );
+      }
     }
-
     // floatingobjects.createTriangleObject(
     //   newType,
     //   object.position.x,
@@ -166,7 +167,10 @@ class CollisionEngine {
     // );
 
     for (var i = 0; i < 3; i++) {
-      var p = createSprite(bullet.position.x, bullet.position.y);
+      var p = createSprite(
+        bullet.position.x - random(100),
+        bullet.position.y - random(100)
+      );
       p.addImage(particleImage);
       p.setSpeed(random(3, 50), random(360));
       p.friction = 0.95;
