@@ -50,6 +50,7 @@ const collisionEngine = new CollisionEngine();
 const obstacles = new Obstacles();
 const boss = new Boss();
 const trail = new Trail();
+const background = new Background();
 
 function preload() {
   bulletImage = loadImage("assets/asteroids_bullet.png");
@@ -71,26 +72,31 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1200, 900);
+  createCanvas(1400, 900);
   ship.setup();
   objects = new Group();
   bullets = new Group();
-
   if (!song.isPlaying()) song.play();
+
+  background.setup();
 }
 
 function draw() {
   clear();
 
-  if (boss_state === true) {
-    if (frameCount % 30 === 0) {
-      for (let i = 0; i < 255; i++) {
-        background(i, 0, 0);
-      }
-    }
-  } else {
-    background(pointsCount / 2, pointsCount / 2, pointsCount / 2);
+  if (game_state === true) {
+    background.draw();
   }
+
+  // if (boss_state === true) {
+  //   if (frameCount % 30 === 0) {
+  //     for (let i = 0; i < 255; i++) {
+  //       background(i, 0, 0);
+  //     }
+  //   }
+  // } else {
+  //   background(pointsCount / 2, pointsCount / 2, pointsCount / 2);
+  // }
 
   ship.rotationControls();
   ship.attacksControls();
