@@ -198,5 +198,5 @@ document.getElementById("start-game").addEventListener("click", function() {
 });
 
 $("#start-game")
-  .delay(1500)
+  .delay(15000)
   .show(0);
