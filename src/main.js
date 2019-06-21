@@ -59,15 +59,15 @@ function preload() {
   xattack = loadImage("assets/xattack0001.png", "assets/xattack0002.png");
   pointattackImage = loadImage("assets/multipointattack.png");
   soundFormats("mp3", "ogg");
-  song = loadSound("/assets/Star Wars Theme Song By John Williams.mp3");
-  battleSong = loadSound("/assets/battle.mp3");
-  rocketSound = loadSound("/assets/rocket.mp3");
-  laserSong = loadSound("/assets/laser1.mp3");
-  multiSound = loadSound("/assets/multi.mp3");
-  xSound = loadSound("/assets/xgun.mp3");
-  bossSound = loadSound("/assets/boss.mp3");
-  noSound = loadSound("/assets/noo.mp3");
-  bossAttackImg = loadImage("/assets/bossAttack.png");
+  song = loadSound("assets/Star Wars Theme Song By John Williams.mp3");
+  battleSong = loadSound("assets/battle.mp3");
+  rocketSound = loadSound("assets/rocket.mp3");
+  laserSong = loadSound("assets/laser1.mp3");
+  multiSound = loadSound("assets/multi.mp3");
+  xSound = loadSound("assets/xgun.mp3");
+  bossSound = loadSound("assets/boss.mp3");
+  noSound = loadSound("assets/noo.mp3");
+  bossAttackImg = loadImage("assets/bossAttack.png");
 }
 
 function setup() {
@@ -75,8 +75,8 @@ function setup() {
   ship.setup();
   objects = new Group();
   bullets = new Group();
-  song.setVolume(0.1);
-  song.play();
+
+  if (!song.isPlaying()) song.play();
 }
 
 function draw() {
@@ -124,9 +124,11 @@ function draw() {
   if (health <= 0) {
     objects.removeSprites();
 
-    bossSound.stop();
-    noSound.setVolume(0.1);
-    noSound.play();
+    battleSong.stop();
+    if (!noSound.isPlaying()) noSound.play();
+
+    // noSound.setVolume(0.1);
+    // noSound.play();
     objects.overlap(bullets, collisionEngine.objectHit);
     document.querySelector("#game-board").innerHTML = "";
     document.querySelector("#message1").style.display = "block";
@@ -138,7 +140,8 @@ function draw() {
 
     setTimeout(() => {
       document.querySelector("#message1").style.display = "none";
-    }, 1500);
+      location.reload();
+    }, 3000);
   }
 
   if (game_state === true && boss_state === false) {
@@ -150,6 +153,7 @@ function draw() {
         bossSound.stop();
         noSound.setVolume(0.1);
         noSound.play();
+        objects.removeSprites();
         objects.overlap(bullets, collisionEngine.objectHit);
         document.querySelector("#game-board").innerHTML = "";
         document.querySelector("#message1").style.display = "block";
@@ -160,7 +164,7 @@ function draw() {
           location.reload();
 
           document.querySelector("#message1").style.display = "none";
-        }, 2500);
+        }, 5000);
       }
     });
   }
