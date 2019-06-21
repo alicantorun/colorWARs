@@ -23,7 +23,7 @@ class Ship {
       document.querySelector(
         "#level"
       ).innerHTML = `BOSS HEALTH REMAINING: <span id="boss-health"></span>`;
-      document.querySelector("#boss-health").innerHTML = `${500 - bossHp}`;
+      document.querySelector("#boss-health").innerHTML = `${2500 - bossHp}`;
     }
   }
 

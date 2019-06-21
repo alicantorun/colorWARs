@@ -155,7 +155,7 @@ function draw() {
   } else if (boss_state === true && game_state === false) {
     objects.collide(bullets, function(e) {
       bossHp++;
-      if (bossHp >= 1000) {
+      if (bossHp >= 2500) {
         bossSound.stop();
         noSound.setVolume(0.1);
         noSound.play();
